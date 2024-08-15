@@ -1,7 +1,9 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
-import { remove } from "../redux/Slices/CartSlice";
+import { remove, updateQuantity } from "../redux/Slices/CartSlice";
 import { toast } from "react-hot-toast";
+import { FcRating } from "react-icons/fc";
+
 
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
@@ -10,6 +12,10 @@ const CartItem = ({ item }) => {
     dispatch(remove(item.id));
     toast.error("Item Removed");
   };
+
+  const handleQuantityChange = (newQuantity) => {
+    dispatch(updateQuantity({id: item.id, quantity: newQuantity}));
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-300">
@@ -24,9 +30,25 @@ const CartItem = ({ item }) => {
           </div>
           <p className="text-gray-900 font-bold mt-1">₹{item.price}</p>
           <div className="flex items-center mt-1 text-sm text-gray-600">
-            <span>Size: {item.size}</span>
+            <span>{item.rating.rate}</span>
+            <FcRating />
             <span className="mx-2">•</span>
-            <span>Qty: {item.quantity}</span>
+            <div className="flex items-center">
+              <span className="mr-2">Qty:</span>
+              <button
+                onClick={() => handleQuantityChange(item.quantity - 1)}
+                className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center"
+              >
+                -
+              </button>
+              <span className="mx-2">{item.quantity}</span>
+              <button
+                onClick={() => handleQuantityChange(item.quantity + 1)}
+                className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center"
+              >
+                +
+              </button>
+            </div>
           </div>
         </div>
       </div>

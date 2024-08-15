@@ -9,7 +9,7 @@ const Cart = () => {
   const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
-    setTotalAmount(cart.reduce((acc, curr) => acc + curr.price, 0));
+    setTotalAmount(cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0));
   }, [cart]);
 
   return (
@@ -26,7 +26,7 @@ const Cart = () => {
           </div>
           <div className="lg:w-1/3 ">
             <div className="bg-white rounded-lg shadow-sm p-6 sticky top-6 border border-gray-300">
-              <h2 className="text-2xl font-medium mb-6">Price Details ({cart.length} Items)</h2>
+              <h2 className="text-2xl font-medium mb-6">Price Details ({cart.reduce((acc, item) => acc + item.quantity, 0)} Items)</h2>
               <div className="space-y-4">
                 <div className="flex justify-between items-center"> 
                   <span className="text-gray-600">Total Product Price</span>
