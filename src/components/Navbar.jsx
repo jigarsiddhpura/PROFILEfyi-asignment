@@ -13,7 +13,7 @@ const {cart}= useSelector((state)=>state)
           <NavLink to='/'>
             <div className="flex flex-row justify-between items-center gap-x-6 text-slate-100">
               <div className="ml-6">
-                  <img src="https://upload.wikimedia.org/wikipedia/en/f/f6/Kendrick_Lamar_-_To_Pimp_a_Butterfly.png" className="h-14"/>  
+                  <img src="https://upload.wikimedia.org/wikipedia/en/f/f6/Kendrick_Lamar_-_To_Pimp_a_Butterfly.png" className="h-14" alt="logo"/>  
               </div>
               <div>
                   <h1 >To Pimp A Butterfly</h1>

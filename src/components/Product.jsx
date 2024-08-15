@@ -33,8 +33,7 @@ return (
 
       {/* gc */}
       <div className="h-[180px]">
-        <img src={post.image}
-        className="h-full w-full"/>
+        <img src={post.image} className="h-full w-full" alt="product-img"/>
       </div>
       
       <div>
