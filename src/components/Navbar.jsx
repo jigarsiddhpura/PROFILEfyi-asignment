@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const {cart}= useSelector((state)=>state)
+  const { cart } = useSelector((state) => state.cart);
   return (
     <div className="border-b-2 bg-slate-100 border-slate-400">
       <nav className="max-w-7xl mx-auto px-4 ">
@@ -30,23 +30,23 @@ const Navbar = () => {
               <FaUser className=""/>
               Profile
             </NavLink> */}
-            <NavLink to="/" className="flex flex-col items-center text-lg hover:bg-purple-700 font-medium">
+            <NavLink to="/" className="flex flex-col items-center text-lg hover:text-purple-900 font-semibold">
               {/* <FaUser className=""/> */}
               Home
             </NavLink>
             <NavLink to='/cart'>
               <div className="relative">
-                <FaShoppingCart className="size-5"/>
+                <FaShoppingCart className="size-5" />
                 {
                   cart.length > 0 &&
                   <span className="absolute -top-1 -right-2 bg-purple-700 rounded-full text-sm w-5 h-5 grid justify-items-center animate-bounce text-white">{cart.length}</span>
                 }
-                
+
               </div>
             </NavLink>
           </div>
         </div>
-        
+
       </nav>
     </div>
   );

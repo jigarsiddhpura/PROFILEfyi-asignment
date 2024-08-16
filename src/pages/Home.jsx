@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Product from "../components/Product";
-import { Spinner } from "../components/Spinner";
+import {Spinner} from "../components/Spinner";
 
 const Home = () => {
   const API_URL = "https://fakestoreapi.com/products";
