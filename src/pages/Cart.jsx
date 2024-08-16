@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import CartItem from "../components/CartItem";
 import CouponModal from "../components/CouponModal";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 import { applyCoupon, removeCoupon } from "../redux/Slices/CartSlice";
 import { toast } from 'react-hot-toast';
 import { MdOutlineLocalOffer } from "react-icons/md";
+import Checkout from "./Checkout";
+
 
 const PriceDetails = ({ totalAmount, appliedCoupons, discountAmount, finalAmount }) => (
   <div className="space-y-4">
@@ -32,7 +34,7 @@ const PriceDetails = ({ totalAmount, appliedCoupons, discountAmount, finalAmount
   </div>
 );
 
-const ApplyCoupons = ({appliedCoupons, setIsCouponModalOpen}) => {
+const ApplyCoupons = ({ appliedCoupons, setIsCouponModalOpen }) => {
   return (
     <>
       <div className="flex gap-4 align-middle mt-2 py-3 border-b-2 border-b-slate-200">
@@ -52,11 +54,13 @@ const ApplyCoupons = ({appliedCoupons, setIsCouponModalOpen}) => {
 }
 
 const Cart = () => {
-  const { cart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { cart } = useSelector((state) => state.cart);
   const [totalAmount, setTotalAmount] = useState(0);
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [appliedCoupons, setAppliedCoupons] = useState([]);
+  const [isCheckout, setIsCheckout] = useState(false);
 
   useEffect(() => {
     setTotalAmount(cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0));
@@ -92,6 +96,10 @@ const Cart = () => {
   const discountAmount = calculateDiscount();
   const finalAmount = totalAmount - (totalAmount * 0.1) - discountAmount;
 
+  const handleCheckout = () => {
+    navigate('/checkout', {state: {finalAmount}})
+  };
+
   if (cart.length === 0) {
     return (
       <div className="min-h-[80vh] flex flex-col justify-center items-center">
@@ -105,6 +113,10 @@ const Cart = () => {
         </NavLink>
       </div>
     );
+  }
+
+  if (isCheckout) {
+    return <Checkout finalAmount={finalAmount} />;
   }
 
   return (
@@ -131,9 +143,10 @@ const Cart = () => {
             <p className="text-xs text-gray-500 mt-4 mb-6">
               Clicking on 'Place Order' will not deduct any money
             </p>
-            <button className="w-full bg-purple-600 text-white py-3 rounded font-semibold hover:bg-purple-700 transition duration-300">
-              PLACE ORDER
-            </button>
+              <button className="w-full bg-purple-600 text-white py-3 rounded font-semibold hover:bg-purple-700 transition duration-300"
+              onClick={handleCheckout}>
+                PLACE ORDER
+              </button>
             <div className="flex items-center mt-6 bg-blue-50 p-4 rounded">
               <AiFillSafetyCertificate className="mr-4 size-14 text-blue-600" />
               <div>

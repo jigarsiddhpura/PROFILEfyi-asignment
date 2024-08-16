@@ -21,7 +21,7 @@ const CartItem = ({ item }) => {
     <div className="bg-white rounded-lg shadow-sm border border-gray-300">
       <div className="p-4 flex items-center space-x-4">
         <div className="w-16 h-16 flex-shrink-0">
-          <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+          <img src={item.image} alt={item.title} className="w-full h-full object-scale-down" />
         </div>
         <div className="flex-grow">
           <div className="flex justify-between items-start">
