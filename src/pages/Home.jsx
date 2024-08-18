@@ -39,7 +39,7 @@ const Home = () => {
 
   // TODO: ADD INTERSECTION OBSERVER FOR MOBILES
   useEffect(() => {
-    if (isMobile) {
+    if (isMobile && filteredItems.length > 0) {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -60,7 +60,7 @@ const Home = () => {
         products.forEach((product) => observer.unobserve(product));
       };
     }
-  }, [posts, isMobile]);
+  }, [isMobile, filteredItems ]);
 
   return (
     <div>

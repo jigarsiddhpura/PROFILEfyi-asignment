@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-hot-toast';
 import { add, remove } from '../redux/Slices/CartSlice';
+import '../index.css'
 
 const Product = ({ post, isMobile }) => {
   const { cart } = useSelector((state) => state.cart);
