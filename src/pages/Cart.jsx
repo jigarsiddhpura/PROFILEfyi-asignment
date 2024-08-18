@@ -9,6 +9,7 @@ import { toast } from 'react-hot-toast';
 import { MdOutlineLocalOffer } from "react-icons/md";
 import Checkout from "./Checkout";
 import { AnimatedButton } from "../utility/AnimatedButton";
+import Navbar from "../components/Navbar";
 
 // A React component that displays the price details of an order.
 const PriceDetails = ({ totalAmount, appliedCoupons, discountAmount, finalAmount }) => (
@@ -97,7 +98,7 @@ const Cart = () => {
   const finalAmount = totalAmount - (totalAmount * 0.1) - discountAmount;
 
   const handleCheckout = () => {
-    navigate('/checkout', {state: {finalAmount}})
+    navigate('/checkout', { state: { finalAmount } })
   };
 
   if (cart.length === 0) {
@@ -120,53 +121,59 @@ const Cart = () => {
   }
 
   return (
-    <div className="container mx-2 sm:mx-auto px-4 py-8 ">
-      <div className="flex flex-col lg:flex-row gap-8 xl:mx-28 2xl:mx-40 p-4 md:p-10">
-        <div className="lg:w-2/3 space-y-6">
-          <h2 className="text-2xl font-medium mb-4">Product Details</h2>
-          {cart.map((item, index) => (
-            <CartItem key={item.id} item={item} itemIndex={index} />
-          ))}
-        </div>
-        <div className="lg:w-1/3">
-          <div className="bg-white rounded-lg shadow-sm p-6 sticky top-6 border border-gray-300">
-            <h2 className="text-2xl font-medium mb-6">
-              Price Details ({cart.reduce((acc, item) => acc + item.quantity, 0)} Items)
-            </h2>
-            <PriceDetails
-              totalAmount={totalAmount}
-              appliedCoupons={appliedCoupons}
-              discountAmount={discountAmount}
-              finalAmount={finalAmount}
-            />
-            <ApplyCoupons appliedCoupons={appliedCoupons} setIsCouponModalOpen={setIsCouponModalOpen} />
-            <p className="text-xs text-gray-500 mt-6">
-              Clicking on 'Place Order' will not deduct any money
-            </p>
-            <AnimatedButton onClick={handleCheckout}>
-              PLACE ORDER
-            </AnimatedButton>
-            <div className="flex items-center mt-6 bg-blue-50 p-4 rounded">
-              <AiFillSafetyCertificate className="mr-4 text-blue-600 hidden sm:block" style={{ fontSize: '3rem' }} />
-              <div>
-                <h3 className="font-semibold text-blue-800">Your Safety, Our Priority</h3>
-                <p className="text-sm text-gray-600">
-                  We make sure that your package is safe at every point of contact.
-                </p>
+    <>
+      <div className="bg-slate-900">
+        <Navbar showSearchBar={false}/>
+      </div>
+      <div className="container mx-2 sm:mx-auto px-4 py-8 ">
+        <div className="flex flex-col lg:flex-row gap-8 xl:mx-28 2xl:mx-40 p-4 md:p-10">
+          <div className="lg:w-2/3 space-y-6">
+            <h2 className="text-2xl font-medium mb-4">Product Details</h2>
+            {cart.map((item, index) => (
+              <CartItem key={item.id} item={item} itemIndex={index} />
+            ))}
+          </div>
+          <div className="lg:w-1/3">
+            <div className="bg-white rounded-lg shadow-sm p-6 sticky top-6 border border-gray-300">
+              <h2 className="text-2xl font-medium mb-6">
+                Price Details ({cart.reduce((acc, item) => acc + item.quantity, 0)} Items)
+              </h2>
+              <PriceDetails
+                totalAmount={totalAmount}
+                appliedCoupons={appliedCoupons}
+                discountAmount={discountAmount}
+                finalAmount={finalAmount}
+              />
+              <ApplyCoupons appliedCoupons={appliedCoupons} setIsCouponModalOpen={setIsCouponModalOpen} />
+              <p className="text-xs text-gray-500 mt-6">
+                Clicking on 'Place Order' will not deduct any money
+              </p>
+              <AnimatedButton onClick={handleCheckout}>
+                PLACE ORDER
+              </AnimatedButton>
+              <div className="flex items-center mt-6 bg-blue-50 p-4 rounded">
+                <AiFillSafetyCertificate className="mr-4 text-blue-600 hidden sm:block" style={{ fontSize: '3rem' }} />
+                <div>
+                  <h3 className="font-semibold text-blue-800">Your Safety, Our Priority</h3>
+                  <p className="text-sm text-gray-600">
+                    We make sure that your package is safe at every point of contact.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <CouponModal
+          isOpen={isCouponModalOpen}
+          onClose={() => setIsCouponModalOpen(false)}
+          onApplyCoupon={handleApplyCoupon}
+          onRemoveCoupon={handleRemoveCoupon}
+          appliedCoupons={appliedCoupons}
+          totalAmount={totalAmount}
+        />
       </div>
-      <CouponModal
-        isOpen={isCouponModalOpen}
-        onClose={() => setIsCouponModalOpen(false)}
-        onApplyCoupon={handleApplyCoupon}
-        onRemoveCoupon={handleRemoveCoupon}
-        appliedCoupons={appliedCoupons}
-        totalAmount={totalAmount}
-      />
-    </div>
+    </>
+
   );
 };
 

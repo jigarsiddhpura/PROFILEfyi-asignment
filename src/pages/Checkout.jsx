@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { AnimatedButton } from '../utility/AnimatedButton';
-
+import Navbar from '../components/Navbar';
 
 const FormSection = ({ title, children }) => (
     <div className="mb-6">
@@ -73,51 +73,56 @@ const Checkout = () => {
     };
 
     return (
-        <div className="container mx-auto px-4 py-8 max-w-6xl">
-            <div className="bg-white rounded-lg shadow-2xl p-6">
-                <h1 className="text-3xl md:text-4xl font-semibold mb-6">Checkout</h1>
+        <>
+            <div className="bg-slate-900">
+                <Navbar showSearchBar={false} />
+            </div>
+            <div className="container mx-auto px-4 py-8 max-w-6xl">
+                <div className="bg-white rounded-lg shadow-2xl p-6">
+                    <h1 className="text-3xl md:text-4xl font-semibold mb-6">Checkout</h1>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <FormSection title="Customer Info">
-                            <FormInput name="firstName" placeholder="First Name" onChange={handleInputChange} />
-                            <FormInput name="lastName" placeholder="Last Name" onChange={handleInputChange} />
-                            <FormInput name="email" placeholder="Email" type="email" onChange={handleInputChange} />
-                            <FormInput name="phone" placeholder="Phone" type="tel" onChange={handleInputChange} />
-                        </FormSection>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <FormSection title="Customer Info">
+                                <FormInput name="firstName" placeholder="First Name" onChange={handleInputChange} />
+                                <FormInput name="lastName" placeholder="Last Name" onChange={handleInputChange} />
+                                <FormInput name="email" placeholder="Email" type="email" onChange={handleInputChange} />
+                                <FormInput name="phone" placeholder="Phone" type="tel" onChange={handleInputChange} />
+                            </FormSection>
 
-                        <FormSection title="Shipping Address">
-                            <FormInput name="address" placeholder="Address" onChange={handleInputChange} />
-                            <FormInput name="city" placeholder="City" onChange={handleInputChange} />
-                            <FormInput name="zipCode" placeholder="Zip Code" onChange={handleInputChange} />
-                        </FormSection>
+                            <FormSection title="Shipping Address">
+                                <FormInput name="address" placeholder="Address" onChange={handleInputChange} />
+                                <FormInput name="city" placeholder="City" onChange={handleInputChange} />
+                                <FormInput name="zipCode" placeholder="Zip Code" onChange={handleInputChange} />
+                            </FormSection>
 
-                        <FormSection title="Payment">
-                            <div className="flex space-x-2 mb-4">
-                                <div className="px-2 py-1 bg-gray-200 rounded text-sm">Rupay</div>
-                                <div className="px-2 py-1 bg-gray-200 rounded text-sm">Visa</div>
+                            <FormSection title="Payment">
+                                <div className="flex space-x-2 mb-4">
+                                    <div className="px-2 py-1 bg-gray-200 rounded text-sm">Rupay</div>
+                                    <div className="px-2 py-1 bg-gray-200 rounded text-sm">Visa</div>
+                                </div>
+                                <FormInput name="cardNumber" placeholder="Card Number" onChange={handleInputChange} />
+                                <FormInput name="cardName" placeholder="Name on Card" onChange={handleInputChange} />
+                                <div className="flex space-x-4">
+                                    <FormInput name="expiryDate" placeholder="MM/YY" onChange={handleInputChange} />
+                                    <FormInput name="cvv" placeholder="CVV" onChange={handleInputChange} />
+                                </div>
+                            </FormSection>
+                        </div>
+
+                        <div>
+                            <h2 className="text-xl font-semibold mb-4">Your Purchases</h2>
+                            <OrderSummary cart={cart} finalAmount={finalAmount} />
+                            <div className="mt-6">
+                                <AnimatedButton>
+                                    PROCEED TO PAYMENT
+                                </AnimatedButton>
                             </div>
-                            <FormInput name="cardNumber" placeholder="Card Number" onChange={handleInputChange} />
-                            <FormInput name="cardName" placeholder="Name on Card" onChange={handleInputChange} />
-                            <div className="flex space-x-4">
-                                <FormInput name="expiryDate" placeholder="MM/YY" onChange={handleInputChange} />
-                                <FormInput name="cvv" placeholder="CVV" onChange={handleInputChange} />
-                            </div>
-                        </FormSection>
-                    </div>
-
-                    <div>
-                        <h2 className="text-xl font-semibold mb-4">Your Purchases</h2>
-                        <OrderSummary cart={cart} finalAmount={finalAmount} />
-                        <div className="mt-6">
-                            <AnimatedButton>
-                                PROCEED TO PAYMENT
-                            </AnimatedButton>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

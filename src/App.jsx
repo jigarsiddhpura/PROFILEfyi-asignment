@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar"
 import Home from "./pages/Home"
 import Cart from "./pages/Cart"
 import Checkout from "./pages/Checkout";
@@ -8,9 +7,6 @@ import Checkout from "./pages/Checkout";
 const App = () => {
   return (
     <div className="App">
-      <div className="bg-slate-900">
-        <Navbar />
-      </div>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/cart' element={<Cart />} />

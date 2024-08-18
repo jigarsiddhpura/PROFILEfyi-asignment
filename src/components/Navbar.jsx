@@ -10,9 +10,13 @@ const NavItem = ({ to, children, className }) => (
   </NavLink>
 );
 
-const Navbar = () => {
+const Navbar = ({searchTerm, onSearchChange, showSearchBar}) => {
   const { cart } = useSelector((state) => state.cart);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleSearchInput = (e) => {
+    onSearchChange(e.target.value);
+  }
 
   return (
     <div className="border-b-2 bg-slate-100 border-slate-400">
@@ -33,14 +37,18 @@ const Navbar = () => {
           {/* Desktop navigation */}
           {/* on small screen - `hidden` class takes effect while on >= `medium` screen, diplay:flex overrides it */}
           <div className="hidden md:flex flex-1 justify-end items-center space-x-4 lg:space-x-12">
+            {showSearchBar && (
             <div className="relative w-full max-w-sm lg:max-w-md xl:max-w-lg border border-slate-300">
               <input
                 type="text"
                 placeholder="Search..."
+                value={searchTerm}
+                onChange={handleSearchInput}
                 className="w-full py-2 pl-10 pr-4 text-gray-700 bg-gray-100 rounded-sm focus:outline-none focus:bg-white focus:border focus:border-purple-500"
               />
               <FiSearch className="absolute left-3 top-3 text-gray-400" />
             </div>
+            )}
             <NavItem to="/">Home</NavItem>
             <NavItem to='/cart'>
               <div className="relative">
@@ -58,14 +66,18 @@ const Navbar = () => {
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="md:hidden py-2">
+            {showSearchBar && (
             <div className="relative mb-4 bg-">
               <input
                 type="text"
                 placeholder="Search..."
+                value={searchTerm}
+                onChange={handleSearchInput}
                 className="w-full py-2 pl-10 pr-4 text-gray-700 bg-gray-100 rounded-sm focus:outline-none focus:bg-white border border-slate-300 focus:border-purple-500 "
               />
               <FiSearch className="absolute left-3 top-3 text-gray-400" />
             </div>
+            )}
             <NavItem to="/" className="mb-2">Home</NavItem>
             <NavItem to='/cart' className="mb-2">
               <div className="relative">
