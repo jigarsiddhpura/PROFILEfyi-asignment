@@ -1,30 +1,15 @@
 import { useEffect, useState } from "react";
 import Product from "../components/Product";
 import Spinner from "../components/Spinner";
+import { useProductData } from "../hooks/useProductData";
 
 const Home = () => {
-  const API_URL = "https://fakestoreapi.com/products";
-  const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
 
-  async function fetchProductData() {
-    setLoading(true);
-    try {
-      const res = await fetch(API_URL);
-      const data = await res.json();
-      setPosts(data);
-    } catch (error) {
-      console.log("Error fetching data:", error);
-      setPosts([]);
-    }
-    setLoading(false);
-  }
+  const { loading, posts } = useProductData();
 
   // TODO: CHECK DEVICE - MOBILE/DESKTOP
   useEffect(() => {
-    fetchProductData();
-
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };

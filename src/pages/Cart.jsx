@@ -10,6 +10,7 @@ import { MdOutlineLocalOffer } from "react-icons/md";
 import Checkout from "./Checkout";
 import { AnimatedButton } from "../utility/AnimatedButton";
 
+// A React component that displays the price details of an order.
 const PriceDetails = ({ totalAmount, appliedCoupons, discountAmount, finalAmount }) => (
   <div className="space-y-4">
     <div className="flex justify-between items-center">
@@ -34,6 +35,7 @@ const PriceDetails = ({ totalAmount, appliedCoupons, discountAmount, finalAmount
   </div>
 );
 
+// A React component that displays the apply coupon button and the number of coupons applied.
 const ApplyCoupons = ({ appliedCoupons, setIsCouponModalOpen }) => {
   return (
     <div className="flex flex-row gap-4 items-center justify-between mt-2 py-3 border-b-2 border-b-slate-200">
