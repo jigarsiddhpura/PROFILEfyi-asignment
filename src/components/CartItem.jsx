@@ -64,7 +64,7 @@ const CartItem = ({ item }) => {
         </button>
       </div>
       <div className="border-t border-gray-300 px-4 py-3 flex justify-between items-center text-sm">
-        <span className="text-gray-600">Sold by: {item.seller}</span>
+        <span className="text-gray-600"></span>
         <span className="text-gray-600">Free Delivery</span>
       </div>
     </div>

@@ -8,7 +8,7 @@ import { applyCoupon, removeCoupon } from "../redux/Slices/CartSlice";
 import { toast } from 'react-hot-toast';
 import { MdOutlineLocalOffer } from "react-icons/md";
 import Checkout from "./Checkout";
-
+import { AnimatedButton } from "../utility/AnimatedButton";
 
 const PriceDetails = ({ totalAmount, appliedCoupons, discountAmount, finalAmount }) => (
   <div className="space-y-4">
@@ -36,20 +36,18 @@ const PriceDetails = ({ totalAmount, appliedCoupons, discountAmount, finalAmount
 
 const ApplyCoupons = ({ appliedCoupons, setIsCouponModalOpen }) => {
   return (
-    <>
-      <div className="flex gap-4 align-middle mt-2 py-3 border-b-2 border-b-slate-200">
-        <div className="pt-2 pl-2 w-[10%]">
-          <MdOutlineLocalOffer />
-        </div>
-        <span className="pt-1 w-[50%]">{appliedCoupons.length > 0 ? `${appliedCoupons.length} coupon applied` : "Apply coupon"}</span>
-        <button
-          className="border border-purple-500 py-1 w-[40%]"
-          onClick={() => setIsCouponModalOpen(true)}
-        >
-          {appliedCoupons.length > 0 ? "EDIT" : "APPLY"}
-        </button>
+    <div className="flex flex-row gap-4 items-center justify-between mt-2 py-3 border-b-2 border-b-slate-200">
+      <div className="flex items-center sm:w-auto">
+        <MdOutlineLocalOffer className="mr-2" />
+        <span className="flex-grow">{appliedCoupons.length > 0 ? `${appliedCoupons.length} coupon applied` : "Apply coupon"}</span>
       </div>
-    </>
+      <button
+        className="border border-purple-500 py-1 px-4 sm:w-auto"
+        onClick={() => setIsCouponModalOpen(true)}
+      >
+        {appliedCoupons.length > 0 ? "EDIT" : "APPLY"}
+      </button>
+    </div>
   )
 }
 
@@ -102,8 +100,8 @@ const Cart = () => {
 
   if (cart.length === 0) {
     return (
-      <div className="min-h-[80vh] flex flex-col justify-center items-center">
-        <h1 className="text-gray-700 font-semibold text-xl mb-2">
+      <div className="min-h-[80vh] flex flex-col justify-center items-center px-4">
+        <h1 className="text-gray-700 font-semibold text-xl mb-2 text-center">
           Your cart is empty!
         </h1>
         <NavLink to="/">
@@ -120,8 +118,8 @@ const Cart = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-col lg:flex-row gap-8 mx-48 p-10">
+    <div className="container mx-2 sm:mx-auto px-4 py-8 ">
+      <div className="flex flex-col lg:flex-row gap-8 xl:mx-28 2xl:mx-40 p-4 md:p-10">
         <div className="lg:w-2/3 space-y-6">
           <h2 className="text-2xl font-medium mb-4">Product Details</h2>
           {cart.map((item, index) => (
@@ -140,15 +138,14 @@ const Cart = () => {
               finalAmount={finalAmount}
             />
             <ApplyCoupons appliedCoupons={appliedCoupons} setIsCouponModalOpen={setIsCouponModalOpen} />
-            <p className="text-xs text-gray-500 mt-4 mb-6">
+            <p className="text-xs text-gray-500 mt-6">
               Clicking on 'Place Order' will not deduct any money
             </p>
-              <button className="w-full bg-purple-600 text-white py-3 rounded font-semibold hover:bg-purple-700 transition duration-300"
-              onClick={handleCheckout}>
-                PLACE ORDER
-              </button>
+            <AnimatedButton onClick={handleCheckout}>
+              PLACE ORDER
+            </AnimatedButton>
             <div className="flex items-center mt-6 bg-blue-50 p-4 rounded">
-              <AiFillSafetyCertificate className="mr-4 size-14 text-blue-600" />
+              <AiFillSafetyCertificate className="mr-4 text-blue-600 hidden sm:block" style={{ fontSize: '3rem' }} />
               <div>
                 <h3 className="font-semibold text-blue-800">Your Safety, Our Priority</h3>
                 <p className="text-sm text-gray-600">

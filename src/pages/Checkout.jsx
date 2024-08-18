@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import {AnimatedButton} from '../utility/AnimatedButton'
 
 const Checkout = () => {
     const { cart } = useSelector((state) => state.cart);
     const location = useLocation();
     const finalAmount = location.state?.finalAmount;
-    
+
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -21,6 +22,7 @@ const Checkout = () => {
         cvv: '',
     });
 
+
     const handleInputChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -29,11 +31,11 @@ const Checkout = () => {
     return (
         <div className="container mx-auto px-4 py-8 max-w-6xl">
             <div className="bg-white rounded-lg shadow-2xl p-6">
-                <h1 className="text-3xl font-semibold mb-6">Checkout</h1>
+                <h1 className="text-3xl md:text-4xl font-semibold mb-6">Checkout</h1>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <h2 className="text-xl font-semibold mb-4">Customer Info</h2>
+                        <h2 className="sm:text-xl font-semibold mb-4">Customer Info</h2>
                         <div className="space-y-4">
                             <input
                                 type="text"
@@ -65,7 +67,7 @@ const Checkout = () => {
                             />
                         </div>
 
-                        <h2 className="text-xl font-semibold mt-6 mb-4">Shipping Address</h2>
+                        <h2 className="sm:text-xl font-semibold mt-6 mb-4">Shipping Address</h2>
                         <div className="space-y-4">
                             <input
                                 type="text"
@@ -90,7 +92,7 @@ const Checkout = () => {
                             />
                         </div>
 
-                        <h2 className="text-xl font-semibold mt-6 mb-4">Payment</h2>
+                        <h2 className="sm:text-xl font-semibold mt-6 mb-4">Payment</h2>
                         <div className="space-y-4">
                             <div className="flex space-x-2">
                                 <div className="px-2 bg-gray-200 rounded">Rupay</div>
@@ -130,7 +132,7 @@ const Checkout = () => {
                     </div>
 
                     <div>
-                        <h2 className="text-xl font-semibold mb-4">Your Purchases</h2>
+                        <h2 className="sm:text-xl font-semibold mb-4">Your Purchases</h2>
                         <div className="space-y-4">
                             {cart.map((item) => (
                                 <div key={item.id} className="flex justify-between items-center">
@@ -148,7 +150,7 @@ const Checkout = () => {
                         </div>
 
                         <div className="mt-6 bg-gray-100 p-4 rounded-lg">
-                            <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+                            <h2 className="sm:text-xl font-semibold mb-4">Order Summary</h2>
                             <div className="space-y-2">
                                 <div className="flex justify-between">
                                     <span>Subtotal</span>
@@ -163,15 +165,15 @@ const Checkout = () => {
                                     <span>₹{finalAmount.toFixed(2)}</span>
                                 </div>
                             </div>
-                            <button className="w-full bg-purple-800 text-white py-3 rounded-lg font-semibold mt-4 hover:bg-gray-800 transition duration-300">
+                            <AnimatedButton>
                                 PROCEED TO PAYMENT
-                            </button>
+                            </AnimatedButton>
                         </div>
                     </div>
                 </div>
 
                 {/* <div className="mt-12 border-t pt-6">
-                    <h2 className="text-xl font-semibold mb-4">Leather Like Wood</h2>
+                    <h2 className="sm:text-xl font-semibold mb-4">Leather Like Wood</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                         <div>
                             <h3 className="font-semibold">About Us</h3>

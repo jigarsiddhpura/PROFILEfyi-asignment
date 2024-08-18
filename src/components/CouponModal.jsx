@@ -85,7 +85,7 @@ const CouponModal = ({ isOpen, onClose, onApplyCoupon, onRemoveCoupon, appliedCo
                                 <span className="font-semibold">{coupon.code}</span>
                                 <button
                                     onClick={() => setCouponCode(coupon.code)}
-                                    className="text-purple-500 hover:text-purple-700"
+                                    className="text-purple-500 hover:-700"
                                 >
                                     APPLY
                                 </button>
